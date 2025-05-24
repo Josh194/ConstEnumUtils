@@ -13,6 +13,7 @@ dependencies = [
 name = "cenum-utils-derive"
 version = "0.1.0"
 dependencies = [
+ "cenum-utils",
  "proc-macro2",
  "quote",
  "rustc-hash",
