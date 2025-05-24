@@ -1,0 +1,17 @@
+[package]
+name = "cenum-utils"
+description = "A minimal library for querying enum properties in const contexts"
+version = "0.1.0"
+license = "MIT OR Apache-2.0"
+edition.workspace = true
+rust-version.workspace = true
+documentation = "https://docs.rs/cenum-utils"
+readme = "crates-io.md"
+repository = "https://github.com/Josh194/ConstEnumUtils"
+
+[dependencies]
+cenum-utils-derive = { version = "0.1.0", optional = true, path = "../cenum_utils_derive" }
+
+[features]
+default = ["derive"]
+derive = ["cenum-utils-derive"]

@@ -1,0 +1,8 @@
+[workspace]
+resolver = "3"
+members = [ "cenum_utils", "cenum_utils_derive" ]
+
+[workspace.package]
+authors = [ "Josh Nave" ]
+edition = "2024"
+rust-version = "1.85"
