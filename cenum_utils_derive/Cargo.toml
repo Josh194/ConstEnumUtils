@@ -20,7 +20,7 @@ quote = { version = "1.0.40" }
 rustc-hash = { version = "2.1.1" }
 
 [dev-dependencies]
-cenum-utils = { version = "0.1.0", path = "../cenum_utils" }
+cenum-utils = { path = "../cenum_utils" }
 
 [features]
 default = []
