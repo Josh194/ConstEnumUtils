@@ -4,14 +4,14 @@ version = 4
 
 [[package]]
 name = "cenum-utils"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "cenum-utils-derive",
 ]
 
 [[package]]
 name = "cenum-utils-derive"
-version = "0.1.1"
+version = "0.2.0"
 dependencies = [
  "cenum-utils",
  "proc-macro2",
