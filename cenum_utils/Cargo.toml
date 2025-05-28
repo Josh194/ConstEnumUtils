@@ -8,6 +8,7 @@ rust-version.workspace = true
 documentation = "https://docs.rs/cenum-utils"
 readme = "crates-io.md"
 repository = "https://github.com/Josh194/ConstEnumUtils"
+keywords = ["enum", "const", "macros"]
 
 [dependencies]
 cenum-utils-derive = { version = "0.2.0", optional = true, path = "../cenum_utils_derive" }
