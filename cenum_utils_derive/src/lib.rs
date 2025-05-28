@@ -32,7 +32,7 @@ use quote::quote;
 use rustc_hash::{FxBuildHasher};
 use syn::{parse_macro_input, DeriveInput, Ident, Type};
 
-/// Derives `EnumCount`, and `EnumDiscriminants` if the enum has a valid primitive `repr` type.
+/// Derives `EnumCount`, `EnumNames`, and `EnumDiscriminants` if the enum has a valid primitive `repr` type.
 /// 
 /// Valid `repr` types are `u8`, `u16`, `u32`, `u64`, `u128`, `usize`, `i8`, `i16`, `i32`, `i64`, `i128`, and `isize`.
 #[proc_macro_derive(ConstEnum)]
@@ -80,7 +80,8 @@ fn impl_const_enum(item: DeriveInput) -> Result<TokenStream, syn::Error> {
 	let enum_name: Ident = item.ident;
 	let variant_count: usize = enum_data.variants.len();
 
-	let variant_idents: Box<[&Ident]> = enum_data.variants.iter().map(|variant| &variant.ident).collect();
+	let variant_idents = enum_data.variants.iter().map(|variant| &variant.ident);
+	let variant_names = enum_data.variants.iter().map(|variant| variant.ident.to_string());
 
 	// * Get the representation type if it is a valid primitive.
 	let enum_discriminant: Option<Type> = representation.and_then(|ty| {
@@ -100,7 +101,13 @@ fn impl_const_enum(item: DeriveInput) -> Result<TokenStream, syn::Error> {
 		}
 	};
 
-	let discriminant_impl: Option<TokenStream> = enum_discriminant.map(|discriminant| {
+	let names_impl: TokenStream = quote! {
+		impl ::#crate_name::EnumNames for #enum_name {
+			const NAMES: &[&str] = &[#(#variant_names),*];
+		}
+	};
+
+	let discriminants_impl: Option<TokenStream> = enum_discriminant.map(|discriminant| {
 		quote! {
 			impl ::#crate_name::EnumDiscriminants for #enum_name {
 				type Discriminant = #discriminant;
@@ -110,5 +117,5 @@ fn impl_const_enum(item: DeriveInput) -> Result<TokenStream, syn::Error> {
 		}
 	});
 
-	Ok(quote! { #count_impl #discriminant_impl })
+	Ok(quote! { #count_impl #names_impl #discriminants_impl })
 }
