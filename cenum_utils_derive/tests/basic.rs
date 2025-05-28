@@ -4,9 +4,9 @@ use cenum_utils_derive::ConstEnum;
 #[derive(ConstEnum)]
 #[repr(u8)]
 enum Enum {
-	X,
-	Y,
-	Z
+	X = 0,
+	Y = 1,
+	Z = 2
 }
 
 #[test]
