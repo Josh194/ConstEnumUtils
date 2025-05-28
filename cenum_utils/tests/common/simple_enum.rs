@@ -1,4 +1,4 @@
-use cenum_utils::{EnumCount, EnumNames, EnumDiscriminants};
+use cenum_utils::{EnumCount, EnumDiscriminants, EnumNames};
 
 #[repr(u8)]
 pub enum SimpleEnum {
@@ -11,12 +11,12 @@ impl EnumCount for SimpleEnum {
 	const COUNT: usize = 3;
 }
 
-impl EnumNames for SimpleEnum {
-	const NAMES: &[&str] = &["X", "Y", "Z"];
-}
-
 impl EnumDiscriminants for SimpleEnum {
 	type Discriminant = u8;
 
 	const DISCRIMINANTS: &[Self::Discriminant] = &[0u8, 1u8, 2u8];
+}
+
+impl EnumNames for SimpleEnum {
+	const NAMES: &[&str] = &["X", "Y", "Z"];
 }

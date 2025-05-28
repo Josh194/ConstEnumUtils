@@ -1,4 +1,4 @@
-use cenum_utils::{EnumCount as _, EnumDiscriminants as _};
+use cenum_utils::{EnumCount as _, EnumDiscriminants as _, EnumNames as _};
 use cenum_utils_derive::ConstEnum;
 
 #[derive(ConstEnum)]
@@ -10,13 +10,16 @@ enum Enum {
 }
 
 #[test]
-const fn test() {
-	assert!(Enum::COUNT == 3);
+fn count() {
+	assert_eq!(Enum::COUNT, 3);
+}
 
-	let mut i = 0;
+#[test]
+fn discriminants() {
+	assert_eq!(Enum::DISCRIMINANTS, &[0u8, 1u8, 2u8]);
+}
 
-	while i < Enum::DISCRIMINANTS.len() {
-		assert!(Enum::DISCRIMINANTS[i] as usize == i);
-		i += 1;
-	}
+#[test]
+fn names() {
+	assert_eq!(Enum::NAMES, &["X", "Y", "Z"]);
 }
