@@ -32,7 +32,7 @@ use quote::quote;
 use rustc_hash::{FxBuildHasher};
 use syn::{parse_macro_input, DeriveInput, Ident, Type};
 
-/// Derives `EnumCount`, `EnumNames`, and `EnumDiscriminants` if the enum has a valid primitive `repr` type.
+/// Derives `EnumCount` and `EnumNames`, as well as `EnumDiscriminants` if the enum has a valid primitive `repr` type.
 /// 
 /// Valid `repr` types are `u8`, `u16`, `u32`, `u64`, `u128`, `usize`, `i8`, `i16`, `i32`, `i64`, `i128`, and `isize`.
 #[proc_macro_derive(ConstEnum)]

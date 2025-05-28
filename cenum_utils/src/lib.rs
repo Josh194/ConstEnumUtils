@@ -10,12 +10,13 @@
 Currently this includes:
 - [EnumCount] — Variant counts.
 - [EnumDiscriminants] — Variant discriminants.
+- [EnumNames] — Variant names.
 
 Unfortunately, due to rust's currently lack of const trait support, actually interacting with some of the features this crate provides in const contexts can be somewhat difficult.
 
 # Example
 ```rust
-use cenum_utils::{ConstEnum, EnumCount as _, EnumDiscriminants as _};
+use cenum_utils::*;
 
 #[derive(ConstEnum)]
 #[repr(u8)]
@@ -25,16 +26,28 @@ enum Enum {
 	Z
 }
 
-const fn test() {
+fn test() {
+	assert_eq!(Enum::COUNT, 3);
+	assert_eq!(Enum::DISCRIMINANTS, &[0, 1, 2]);
+	assert_eq!(Enum::NAMES, &["X", "Y", "Z"])
+}
+
+const fn const_test() {
 	assert!(Enum::COUNT == 3);
+
+	static NAMES: &[u8] = &[b'X', b'Y', b'Z'];
 
 	let mut i = 0;
 
-	while i < Enum::DISCRIMINANTS.len() {
+	while i < Enum::COUNT {
 		assert!(Enum::DISCRIMINANTS[i] as usize == i);
+		assert!(Enum::NAMES[i].as_bytes()[0] == NAMES[i]);
 		i += 1;
 	}
 }
+
+# test();
+# const_test();
 ```
 
 # Features
