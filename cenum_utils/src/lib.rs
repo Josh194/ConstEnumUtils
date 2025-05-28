@@ -66,3 +66,14 @@ pub trait EnumDiscriminants {
 		Self::DISCRIMINANTS.iter()
 	}
 }
+
+/// A trait providing access to the names of an enum's variants.
+pub trait EnumNames {
+	/// A reference to an array containing the names for all enum variants this type contains.
+	const NAMES: &[&str];
+
+	/// Returns an iterator over the names for all enum variants this type contains.
+	fn names() -> impl Iterator<Item = &'static str> {
+		Self::NAMES.iter().copied()
+	}
+}
